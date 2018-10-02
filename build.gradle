@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.31"
+    }
+}
+
+version "0.1"
+group "exmaple.micronaut"
+
+apply plugin:"io.spring.dependency-management"
+apply plugin:"com.github.johnrengelman.shadow"
+apply plugin:"application"
+apply plugin:"kotlin"
+apply plugin:"kotlin-kapt"
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.micronaut:bom:1.0.0.M4'
+    }
+}
+
+dependencies {
+    compile "io.micronaut:http-client"
+    compile "io.micronaut:http-server-netty"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.31"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.31"
+    compile "io.micronaut:runtime"
+    kapt "io.micronaut:inject-java"
+    kaptTest "io.micronaut:inject-java"
+    runtime "ch.qos.logback:logback-classic:1.2.3"
+    runtime "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.4.1"
+    testCompile "org.junit.jupiter:junit-jupiter-api:5.1.0"
+    testCompile "org.jetbrains.spek:spek-api:1.1.5"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.1.0"
+    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:1.1.5"
+
+    //tag::jpa[]
+    compile "io.micronaut.configuration:hibernate-jpa" // <1>
+    compile "io.micronaut.configuration:jdbc-hikari" // <2>
+    runtime "com.h2database:h2:1.4.196" // <3>
+    //end::jpa[]
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
+
+mainClassName = "micronaut.example.Application"
+
+
+test {
+    useJUnitPlatform()
+}
+
+compileKotlin {
+	kotlinOptions {
+	    jvmTarget = '1.8' 
+	    //Will retain parameter names for Java reflection
+	    javaParameters = true 
+	}
+}
+
+compileTestKotlin {
+	kotlinOptions {
+	    jvmTarget = '1.8' 
+	    javaParameters = true 
+	}
+}
+

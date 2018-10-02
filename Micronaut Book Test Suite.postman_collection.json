@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "ef876bfb-0b4c-4ec9-9a3a-a584a73ea127",
+		"name": "Micronaut Book Test Suite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Genre",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Music: Punk Rock\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9080/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Genres",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Hell yeah Foreva!\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9080/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"genres"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
