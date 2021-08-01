@@ -1,43 +1,22 @@
 package example.micronaut.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.OneToMany
-import javax.persistence.Table
+import io.micronaut.data.annotation.GeneratedValue
+// import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.annotation.Relation
+import io.micronaut.data.annotation.AutoPopulated
 import javax.validation.constraints.NotNull
-import java.util.HashSet
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.transaction.Transactional
 
 @Entity
-@Table(name = "genre")
-class Genre {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null
-
-    @NotNull
-    @Column(name = "name", nullable = false, unique = true)
-    var name: String? = null
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "genre")
-    var books: Set<Book> = HashSet()
-
-    constructor() {}
-
-    constructor(@NotNull name: String) {
-        this.name = name
-    }
-
-    override fun toString(): String {
-        return "Genre{" +
-                "id=" + id +
-                ", name='" + name + '\''.toString() +
-                '}'.toString()
-    }
+@Transactional
+// @EnableTransactionManagement 
+open class Genre(@Id @AutoPopulated var id: Long, var name: String) {
+    constructor(): this(
+        id = 0,
+        name = ""
+    )
 }

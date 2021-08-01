@@ -1,5 +1,6 @@
-profile: service
-defaultPackage: micronaut.data.access.jpa.hibernate.kotlin
----
-testFramework: spek
+applicationType: default
+defaultPackage: example.micronaut
+testFramework: junit
 sourceLanguage: kotlin
+buildTool: maven
+features: [app-name, http-client, junit, kotlin, kotlin-application, logback, maven, netty-server, readme, shade, yaml]
